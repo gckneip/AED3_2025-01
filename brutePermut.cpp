@@ -1,0 +1,65 @@
+#include "brutePermut.hpp"
+#include <vector>
+#include <algorithm>
+#include <limits>
+#include <iostream>
+#include <chrono>
+#include <string>
+#include <fstream>
+
+void printMemoryUsage() {
+    std::ifstream status("/proc/self/status");
+    std::string line;
+    while (std::getline(status, line)) {
+        if (line.find("VmRSS:") == 0) {
+            std::cout << "Memory usage: " << line << std::endl;
+            break;
+        }
+    }
+}
+
+
+void permutations(std::vector<std::vector<int>> graph){
+    int n = graph.size();
+    std::vector<int> nodes;
+
+    for(int i = 0; i < graph.size(); ++i) {
+        nodes.push_back(i);
+    }
+    int n_permutations = 1;
+
+    for(int i = 1; i < n; ++i) {
+        n_permutations *= i;
+    }
+
+    std::vector<int> minPath, currentPath;
+    int minCost = std::numeric_limits<int>::max();
+    int currentCost = 0;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    do{
+        for(int i = 0; i < nodes.size() - 1; ++i){
+            currentPath.push_back(nodes[i]);
+            currentCost += graph[nodes[i]][nodes[i+1]];
+        }
+        currentCost += graph[nodes[nodes.size()-1]][0];
+        if(currentCost < minCost){
+            minCost = currentCost;
+            minPath = nodes;
+            
+        }
+        currentCost = 0;
+        currentPath.clear();
+    }
+    while(next_permutation(nodes.begin() + 1, nodes.end()));
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> duration = end - start;
+
+    std::cout << "Execution time: " << duration.count() << " seconds\n";
+
+    std::cout << minCost << std::endl;
+    printMemoryUsage();
+}
