@@ -40,7 +40,7 @@ void permutations(std::vector<std::vector<int>> graph){
     auto start = std::chrono::high_resolution_clock::now();
     auto timeLimit = std::chrono::seconds(60);
 
-    do{
+    do{ //if graph isnt fully connected it need to verify if the next step exists and if not break the current permutation
         for(int i = 0; i < nodes.size() - 1; ++i){
             currentPath.push_back(nodes[i]);
             currentCost += graph[nodes[i]][nodes[i+1]];
@@ -70,5 +70,10 @@ void permutations(std::vector<std::vector<int>> graph){
     std::cout << "Total permutations: " << nPermutations << "\n" << "Permutations executed: " << permutationCounter << std::endl;
 
     std::cout << minCost << std::endl;
+
+    for(int node : minPath){
+        std::cout << node << " -> ";
+    }
+    std::cout << nodes[0] << std::endl;
     printMemoryUsage();
 }
