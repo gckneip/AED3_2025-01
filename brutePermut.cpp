@@ -22,14 +22,15 @@ void printMemoryUsage() {
 void permutations(std::vector<std::vector<int>> graph){
     int n = graph.size();
     std::vector<int> nodes;
+    long permutationCounter = 0;
 
     for(int i = 0; i < graph.size(); ++i) {
         nodes.push_back(i);
     }
-    int n_permutations = 1;
+    long nPermutations = 1;
 
     for(int i = 1; i < n; ++i) {
-        n_permutations *= i;
+        nPermutations *= i;
     }
 
     std::vector<int> minPath, currentPath;
@@ -37,6 +38,7 @@ void permutations(std::vector<std::vector<int>> graph){
     int currentCost = 0;
 
     auto start = std::chrono::high_resolution_clock::now();
+    auto timeLimit = std::chrono::seconds(60);
 
     do{
         for(int i = 0; i < nodes.size() - 1; ++i){
@@ -51,6 +53,12 @@ void permutations(std::vector<std::vector<int>> graph){
         }
         currentCost = 0;
         currentPath.clear();
+        permutationCounter += 1;
+
+        auto now = std::chrono::high_resolution_clock::now();
+        if (now - start > timeLimit){
+            break;
+        }
     }
     while(next_permutation(nodes.begin() + 1, nodes.end()));
 
@@ -59,6 +67,7 @@ void permutations(std::vector<std::vector<int>> graph){
     std::chrono::duration<double> duration = end - start;
 
     std::cout << "Execution time: " << duration.count() << " seconds\n";
+    std::cout << "Total permutations: " << nPermutations << "\n" << "Permutations executed: " << permutationCounter << std::endl;
 
     std::cout << minCost << std::endl;
     printMemoryUsage();
