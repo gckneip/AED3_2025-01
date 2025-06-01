@@ -32,7 +32,7 @@ void permutations(std::vector<std::vector<int>> graph){
     auto start = std::chrono::high_resolution_clock::now();
     auto timeLimit = std::chrono::seconds(60);
 
-    do{ //if graph isnt fully connected it need to verify if the next step exists and if not break the current permutation
+    do{
         bool valid = true;
 
         for(int i = 0; i < nodes.size() - 1; ++i){

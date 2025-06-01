@@ -4,8 +4,7 @@
 #include <iostream>
 #include "brutePermut.hpp"
 #include "heldKarp.hpp"
-
-#include "christofides.hpp"
+//#include "christofides.hpp"
 
 int main(int argc, char *argv[]) {
     //verifies number of arguments
