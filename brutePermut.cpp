@@ -41,15 +41,25 @@ void permutations(std::vector<std::vector<int>> graph){
     auto timeLimit = std::chrono::seconds(60);
 
     do{ //if graph isnt fully connected it need to verify if the next step exists and if not break the current permutation
+        bool valid = true;
+
         for(int i = 0; i < nodes.size() - 1; ++i){
+            if(graph[nodes[i]][nodes[i+1]] == 0){
+                valid = false;
+                break;
+            }
             currentPath.push_back(nodes[i]);
             currentCost += graph[nodes[i]][nodes[i+1]];
         }
-        currentCost += graph[nodes[nodes.size()-1]][0];
-        if(currentCost < minCost){
+        if (valid && graph[nodes[nodes.size()-1]][0] == 0){
+            valid = false;
+        }
+        if(valid){
+            currentCost += graph[nodes[nodes.size()-1]][0];
+            if(currentCost < minCost){
             minCost = currentCost;
             minPath = nodes;
-            
+            }
         }
         currentCost = 0;
         currentPath.clear();
