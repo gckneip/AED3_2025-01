@@ -3,6 +3,8 @@
 #include <vector>
 #include <iostream>
 #include "brutePermut.hpp"
+#include "heldKarp.hpp"
+
 #include "christofides.hpp"
 
 int main(int argc, char *argv[]) {
@@ -36,32 +38,10 @@ int main(int argc, char *argv[]) {
         }
 
     if (argv[2][0] == '0'){
-        //permutations(graph);
-    } else {
-        // auto a = prim(graph);
-        // for(auto [b, c, d] : a){
-        //     std::cout << b << " - " << c << " -> " << d <<std::endl;
-        // }
-
-        // auto b = mstDegrees(a, graph[0].size());
-        // for(auto c : b){
-        //     std::cout << c << " ";
-        // }
-
-        // std::vector<int> c;
-
-        // for(int i = 0; i < b.size(); ++i){
-        //     if(b[i] % 2 != 0){
-        //         c.push_back(i);
-        //         std::cout << "added node: " << i << std::endl;
-        //     }
-        // }
-
-        // match_odd_vertices(c, graph);
-
-
+        permutations(graph);
+    } else if(argv[2][0] == '1'){
+        heldKarp(graph); //held karp
     }
-
 
     return 0;
 };
