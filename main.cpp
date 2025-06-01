@@ -3,6 +3,8 @@
 #include <vector>
 #include <iostream>
 #include "brutePermut.hpp"
+#include "heldKarp.hpp"
+
 
 
 int main(int argc, char *argv[]) {
@@ -37,10 +39,9 @@ int main(int argc, char *argv[]) {
 
     if (argv[2][0] == '0'){
         permutations(graph);
-    } else {
-        //calls approximate solution
+    } else if(argv[2][0] == '1'){
+        heldKarp(graph); //held karp
     }
-
 
     return 0;
 };
