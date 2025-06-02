@@ -7,6 +7,13 @@
 #include <chrono>
 
 int main(int argc, char *argv[]) {
+
+    if (argc < 3)
+    {
+        std::cerr << "Usage: " << argv[0] << " <input_file> <0 for brute force, 1 for Held-Karp> <memory_limit_MB>\n";
+        return 1;
+    }
+
     std::ifstream file(argv[1]);
     if (!file) {
         std::cerr << "Error: Could not open file " << argv[1] <<"\n";

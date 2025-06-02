@@ -13,7 +13,7 @@ void permutations(std::vector<std::vector<int>> graph){
     std::vector<int> nodes;
     long permutationCounter = 0;
 
-    for(int i = 0; i < graph.size(); ++i) {
+    for(uint64_t i = 0; i < graph.size(); ++i) {
         nodes.push_back(i);
     }
     long nPermutations = 1;
@@ -32,7 +32,7 @@ void permutations(std::vector<std::vector<int>> graph){
     do{
         bool valid = true;
 
-        for(int i = 0; i < nodes.size() - 1; ++i){
+        for(uint64_t i = 0; i < nodes.size() - 1; ++i){
             if(graph[nodes[i]][nodes[i+1]] == 0){
                 valid = false;
                 break;
@@ -73,7 +73,7 @@ void permutations(std::vector<std::vector<int>> graph){
 
     std::cout << "Minimum cost: " << minCost << std::endl;
     std::cout << "Path: ";
-    for (int i = 0; i < minPath.size(); ++i) {
+    for (uint64_t i = 0; i < minPath.size(); ++i) {
         std::cout << minPath[i];
         if (i != minPath.size() - 1) {
             std::cout << " -> ";
