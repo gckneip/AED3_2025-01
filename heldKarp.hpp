@@ -1,4 +1,5 @@
 #pragma once
 #include <vector>
 
-void heldKarp(const std::vector<std::vector<int>>& graph);
+void heldKarp(std::vector<std::vector<int>>& graph);
+void completeGraphFloydWarshall(std::vector<std::vector<int>>& graph);
