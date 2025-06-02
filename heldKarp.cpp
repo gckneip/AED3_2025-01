@@ -5,11 +5,15 @@
 #include <chrono>
 #include "heldKarp.hpp"
 #include "memoryUsage.hpp"
+
 const int INF = std::numeric_limits<int>::max();
 
 void heldKarp(std::vector<std::vector<int>>& graph) {
     const int n = graph.size();
-    const int FULL_MASK = 1 << n;
+    std::cout << n << "\n";
+
+    const uint64_t FULL_MASK = 1ULL << n; 
+    std::cout << FULL_MASK << "\n";
 
     completeGraphFloydWarshall(graph);
 
@@ -20,7 +24,7 @@ void heldKarp(std::vector<std::vector<int>>& graph) {
 
     dp[1][0] = 0;
 
-    for (int mask = 1; mask < FULL_MASK; ++mask) {
+    for (uint64_t mask = 1; mask < FULL_MASK; ++mask) {
         for (int u = 0; u < n; ++u) {
             if (!(mask & (1 << u))) continue;
             if (dp[mask][u] == INF) continue;
@@ -58,7 +62,7 @@ void heldKarp(std::vector<std::vector<int>>& graph) {
     }
 
     std::vector<int> path;
-    int mask = FULL_MASK - 1;
+    uint64_t mask = FULL_MASK - 1;
     int curr = last;
     while (curr != -1) {
         if (curr < 0 || curr >= n || mask >= FULL_MASK) {
