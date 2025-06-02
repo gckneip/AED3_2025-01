@@ -4,12 +4,10 @@
 #include <iostream>
 #include "brutePermut.hpp"
 #include "heldKarp.hpp"
-
+#include <chrono>
 
 
 int main(int argc, char *argv[]) {
-    //verifies number of arguments
-
     std::ifstream file(argv[1]);
     if (!file) {
         std::cerr << "Error: Could not open file " << argv[1] <<"\n";
@@ -28,19 +26,12 @@ int main(int argc, char *argv[]) {
         }
         graph.push_back(row);
     }
-
-        for(const auto& row : graph){
-            std::cout << "|";
-            for(int val : row){
-                std::cout << val << " ";
-            }
-            std::cout << "|" << "\n";
-        }
+   
 
     if (argv[2][0] == '0'){
         permutations(graph);
     } else if(argv[2][0] == '1'){
-        heldKarp(graph); //held karp
+        heldKarp(graph); 
     }
 
     return 0;

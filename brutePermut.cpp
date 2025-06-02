@@ -8,9 +8,6 @@
 #include <string>
 #include <fstream>
 
-
-
-
 void permutations(std::vector<std::vector<int>> graph){
     int n = graph.size();
     std::vector<int> nodes;
@@ -49,7 +46,10 @@ void permutations(std::vector<std::vector<int>> graph){
 
         auto now = std::chrono::high_resolution_clock::now();
         if (now - start > timeLimit){
-            break;
+            std::cout << "Time limit exceeded. Stopping execution.\n";
+            std::cout << "Total permutations: " << nPermutations << "\n";
+            std::cout << "Permutations executed: " << permutationCounter << std::endl;
+            return;
         }
     }
     while(next_permutation(nodes.begin() + 1, nodes.end()));
@@ -58,14 +58,23 @@ void permutations(std::vector<std::vector<int>> graph){
 
     std::chrono::duration<double> duration = end - start;
 
-    std::cout << "Execution time: " << duration.count() << " seconds\n";
-    std::cout << "Total permutations: " << nPermutations << "\n" << "Permutations executed: " << permutationCounter << std::endl;
+    minPath.push_back(0); 
+    std::reverse(minPath.begin(), minPath.end());
 
-    std::cout << minCost << std::endl;
-
-    for(int node : minPath){
-        std::cout << node << " -> ";
+    std::cout << "Minimum cost: " << minCost << std::endl;
+    std::cout << "Path: ";
+    for (int i = 0; i < minPath.size(); ++i) {
+        std::cout << minPath[i];
+        if (i != minPath.size() - 1) {
+            std::cout << " -> ";
+        }
     }
-    std::cout << nodes[0] << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Execution time: " << duration.count() << " seconds\n";
+    std::cout << "Total permutations: " << nPermutations << "\n";
+    std::cout << "Permutations executed: " << permutationCounter << std::endl;
+
     printMemoryUsage();
+
 }
