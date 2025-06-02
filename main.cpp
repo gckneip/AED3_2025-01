@@ -6,7 +6,6 @@
 #include "heldKarp.hpp"
 #include <chrono>
 
-
 int main(int argc, char *argv[]) {
     std::ifstream file(argv[1]);
     if (!file) {
