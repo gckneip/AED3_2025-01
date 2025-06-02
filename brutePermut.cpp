@@ -11,12 +11,12 @@
 void permutations(std::vector<std::vector<int>> graph){
     int n = graph.size();
     std::vector<int> nodes;
-    long permutationCounter = 0;
+    uint64_t permutationCounter = 0;
 
     for(uint64_t i = 0; i < graph.size(); ++i) {
         nodes.push_back(i);
     }
-    long nPermutations = 1;
+    uint64_t nPermutations = 1;
 
     for(int i = 1; i < n; ++i) {
         nPermutations *= i;
@@ -27,7 +27,7 @@ void permutations(std::vector<std::vector<int>> graph){
     int currentCost = 0;
 
     auto start = std::chrono::high_resolution_clock::now();
-    auto timeLimit = std::chrono::seconds(60);
+    auto timeLimit = std::chrono::hours(10);
 
     do{
         bool valid = true;
@@ -55,11 +55,13 @@ void permutations(std::vector<std::vector<int>> graph){
         permutationCounter += 1;
 
         auto now = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double> elapsed = now - start;
+        std::cout << "\rPermutations executed: " << permutationCounter << " Time elapsed: " << elapsed.count() << std::flush;
+
         if (now - start > timeLimit){
-            std::cout << "Time limit exceeded. Stopping execution.\n";
-            std::cout << "Total permutations: " << nPermutations << "\n";
-            std::cout << "Permutations executed: " << permutationCounter << std::endl;
-            return;
+            std::cout << "\nTime limit exceeded. Stopping execution.\n";
+            break;
         }
     }
     while(next_permutation(nodes.begin() + 1, nodes.end()));
