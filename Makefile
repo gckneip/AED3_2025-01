@@ -1,7 +1,7 @@
 CC = g++
-CFLAGS = -Wall -Wextra  -std=c++11
+CFLAGS = -Wall -Wextra  -std=c++17
 
-SRCS = $(wildcard *.cpp)
+SRCS = $(wildcard *.cpp) $(wildcard blossom/*.cpp) $(wildcard blossom/MinCost/*.cpp)	
 OBJS = $(SRCS:.cpp=.o)
 EXEC = TSP_algorithms
 
