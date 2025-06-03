@@ -37,59 +37,34 @@ int main(int argc, char *argv[]) {
    
 
     if (argv[2][0] == '0'){
-        //permutations(graph);
+        permutations(graph);
     } else if(argv[2][0] == '1'){
         heldKarp(graph);
     } else if(argv[2][0] == '2'){
         auto start = std::chrono::high_resolution_clock::now();
 
-        auto a = prim(graph);
-        for(auto [b, c, d] : a){
-            std::cout << b << " - " << c << " -> " << d <<std::endl;
-        }
+        completeGraphFloydWarshall(graph);
 
-        auto b = mstDegrees(a, graph[0].size());
-        for(auto c : b){
-            std::cout << c << " ";
-        }
+        auto minPath = christofides(graph);
 
-        std::vector<int> c;
-
-        for(int i = 0; i < b.size(); ++i){
-            if(b[i] % 2 != 0){
-                c.push_back(i);
-                std::cout << "added node: " << i << std::endl;
-            }
-        }
-
-        match_odd_vertices(c, graph, a);
-        for(auto [b, c, d] : a){
-            std::cout << b << " - " << c << " -> " << d <<std::endl;
-        }
-
-        auto d = findEulerianCircuit(a, 0);
-
-        for(int e : d){
-            std::cout << e << ", ";
+        // Print path
+        std::cout << "Path: ";
+        for(int node : minPath){
+            std::cout << node << ", " ;
         }
         std::cout << std::endl;
-        auto e = shortcutEulerianPath(d);
 
-        for(int f : e){ 
-            std::cout << f << ", " ;
-        }
+        //Print cost
         int cost = 0;
+        for (size_t i = 0; i < minPath.size() - 1; ++i) {
+            cost += graph[minPath[i]][minPath[i+1]];
+        }
+        std::cout << "cost: " << cost <<std::endl;
 
-    for (size_t i = 0; i < e.size() - 1; ++i) {
-        int from = e[i];
-        int to = e[i + 1];
-        cost += graph[from][to];
+
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+        std::cout << "Execution time: " << duration.count() << " seconds\n";
     }
-    std::cout << cost <<std::endl;
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = end - start;
-    std::cout << "Execution time: " << duration.count() << " seconds\n";
-
     return 0;
-};
 };
